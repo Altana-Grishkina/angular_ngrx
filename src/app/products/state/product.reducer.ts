@@ -7,6 +7,7 @@ export interface State extends AppState.State {
   products: ProductState;
 }
 
+// inerface for the products slice of state
 export interface ProductState {
   showProductCode: boolean;
   currentProduct: Product;
