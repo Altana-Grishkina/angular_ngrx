@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from '../product';
 import { Store } from '@ngrx/store';
-import { getShowProductCode, State, getCurrentProduct, getProducts, getError } from '../state/product.reducer';
+import { getShowProductCode, State, getCurrentProduct, getProducts, getError } from '../state';
 import * as ProductActions from '../state/product.action';
 
 @Component({
