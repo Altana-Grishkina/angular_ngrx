@@ -5,11 +5,12 @@ import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { GenericValidator } from '../../shared/generic-validator';
 import { NumberValidators } from '../../shared/number.validator';
+import { ProductPageAction} from '../state/actions'
 
 /* NgRx */
 import { Store } from '@ngrx/store';
 import { State, getCurrentProduct } from '../state';
-import * as ProductActions from '../state/product.action';
+import * as ProductPageAction from '../state/actions/product-page.action';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -114,13 +115,13 @@ export class ProductEditComponent implements OnInit {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.productName}?`)) {
         this.productService.deleteProduct(product.id).subscribe({
-          next: () => this.store.dispatch(ProductActions.clearCurrentProduct()),
+          next: () => this.store.dispatch(ProductPageAction.clearCurrentProduct()),
           error: err => this.errorMessage = err
         });
       }
     } else {
       // No need to delete, it was never saved
-      this.store.dispatch(ProductActions.clearCurrentProduct());
+      this.store.dispatch(ProductPageAction.clearCurrentProduct());
     }
   }
 
@@ -134,11 +135,11 @@ export class ProductEditComponent implements OnInit {
 
         if (product.id === 0) {
           this.productService.createProduct(product).subscribe({
-            next: p => this.store.dispatch(ProductActions.setCurrentProduct({ currentProductId: p.id})),
+            next: p => this.store.dispatch(ProductPageAction.setCurrentProduct({ currentProductId: p.id})),
             error: err => this.errorMessage = err
           });
         } else {
-          this.store.dispatch(ProductActions.updateProduct({ product }));
+          this.store.dispatch(ProductPageAction.updateProduct({ product }));
 
         }
       }
